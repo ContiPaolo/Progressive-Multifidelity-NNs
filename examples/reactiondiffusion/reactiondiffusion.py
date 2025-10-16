@@ -618,7 +618,7 @@ handles, labels = ax.get_legend_handles_labels()
 fig.legend(handles, labels, loc='upper right', fontsize=30)
 
 plt.tight_layout(rect=[0, 0, .95, 0.95])
-plt.savefig(config.FIGURE_PATH + '/results_POD_ReactionDiffusion', bbox_inches='tight', dpi=600)
+plt.savefig(config.FIGURE_PATH + '/results_POD_ReactionDiffusion.svg', bbox_inches='tight', dpi=600)
 plt.show()
 
 

@@ -1,39 +1,26 @@
 #%%
 #######################     LIBRARIES     ##########################
-from hyperopt import STATUS_OK, tpe, Trials, hp, fmin
-from hyperopt.pyll.stochastic import sample
-from hyperopt.pyll.base import scope
-from sklearn.model_selection import KFold
 import numpy as np
 from matplotlib import pyplot as plt
-from ann_functions import getModel, kCrossVal, transfBestparam
-from time import perf_counter
-import tensorflow as tf
-
 from matplotlib import cm
-from multifidelity_NN_functions import sliding_windows, getOpti, reshape_lstm, create_model, train_model, load_model, save_model
-import pickle
-import os
-import mat73
-import scipy.io
-from scipy.interpolate import griddata
-
-from multifidelity_utils import compute_randomized_SVD, custom_loss, load_navier_stokes, load_mesh, plot_snapshot
-
+import tensorflow as tf
 import sys
-sys.path.insert(0, './progressive_network')
+import os
 
 from progressive_network import MultifidelityNetwork
 
+from multifidelity_utils import compute_randomized_SVD, custom_loss, load_navier_stokes, load_mesh, plot_snapshot, sliding_windows
 
+#%%
 #######################     CONFIGURATIONS     ##########################
 # Configuration
 class Config:
     """Configuration class for the multifidelity network."""
     # General settings
     SEED = 10
-    EXAMPLE_PATH = "./NavierStokes"
-    DATA_PATH = "./navierstokes/data/"
+    MODEL_PATH = "./models/"
+    DATA_PATH = "./data/"
+    FIGURE_PATH = "./figures/"
     SCALING = True
     TRAIN_MODELS = False
     SAVE_MODELS = False
@@ -235,13 +222,13 @@ output_dim1 = n_POD # Number of HF POD modes
 idx_test = 0  # show results for the first test parameter
 
 fig = plt.figure(figsize=(15,15))
-for i in range(n_sim):
+for i in range(config.N_SIMULATIONS):
     early_stopping = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=config.HPARAMS['patience'], restore_best_weights=True)
 
-    print('sim ' + str(i+1) + '/' + str(n_sim))
+    print('sim ' + str(i+1) + '/' + str(config.N_SIMULATIONS))
     #### MODEL 1 - (time, parameter) -> HF-POD coefficients
     model1 = MultifidelityNetwork(params1, input_dim = input_dim1, latent_dim = latent_dim1, output_dim = output_dim1, prev_models = [], prev_inputs = [])
-    name = config.EXAMPLE_PATH + '/models/model1_sim_' + str(i) 
+    name = config.MODEL_PATH + 'model1_sim_' + str(i) 
     if config.TRAIN_MODELS:
         model1.autoencoder.compile(loss=custom_loss,optimizer=params1['opt'])
         tf.random.set_seed(config.SEED + i)
@@ -332,13 +319,13 @@ output_dim2 = n_POD
 
 fig = plt.figure(figsize=(15,15))
 
-for i in range(n_sim):
+for i in range(config.N_SIMULATIONS):
     print('sim ' + str(i+1) + '/' + str(n_sim))
     early_stopping = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=config.HPARAMS['patience'], restore_best_weights=True)
 
     #### MODEL 2 - (time, parameter, sensors) -> HF-POD coefficients
     model2 = MultifidelityNetwork(params2, input_dim = input_dim2, latent_dim = latent_dim2, output_dim = output_dim2, prev_models = [model1_list[i]], prev_inputs = [x1])
-    name = config.EXAMPLE_PATH + '/models/model2_traj_' + str(i)
+    name = config.MODEL_PATH + 'model2_sim_' + str(i)
     if config.TRAIN_MODELS:
         model2.autoencoder.compile(loss=custom_loss,optimizer=params2['opt'])
         tf.random.set_seed(config.SEED + i)
@@ -422,12 +409,12 @@ output_dim3 = n_POD
 
 fig = plt.figure(figsize=(15,15))
 
-for i in range(0,n_sim):
+for i in range(config.N_SIMULATIONS):
     print('sim ' + str(i+1) + '/' + str(n_sim))
     early_stopping = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=config.HPARAMS['patience'], restore_best_weights=True)
     #### MODEL 3 - (time, parameter, sensors, LF-POD coeffs.) -> HF-POD coeffs
     model3 = MultifidelityNetwork(params3, input_dim = input_dim3, latent_dim = latent_dim3, output_dim = output_dim3, prev_models = [model1_list[i], model2_list[i]], prev_inputs = [x1, x2])
-    name = config.EXAMPLE_PATH + '/models/model3_traj_' + str(i)
+    name = config.MODEL_PATH + 'model3_sim_' + str(i)
     if config.TRAIN_MODELS:
         model3.autoencoder.compile(loss=custom_loss,optimizer=params3['opt'])
         tf.random.set_seed(config.SEED + i)
@@ -467,7 +454,6 @@ for i in range(9):
     plt.axvline(x = T_train, color = 'k', linestyle = '--', label = 'end train data')
     plt.legend(loc = 'lower left')
 
-#%% 
 # %%
 #########################     MODEL 4    ##########################
 #########################   PREPROCESS   ##########################
@@ -506,12 +492,12 @@ output_dim4 = n_POD
 
 fig = plt.figure(figsize=(15,15))
 
-for i in range(n_sim):
+for i in range(config.N_SIMULATIONS):
     print('sim ' + str(i+1) + '/' + str(n_sim))
     early_stopping = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=config.HPARAMS['patience'], restore_best_weights=True)
     #### MODEL 4 - (time, parameter, sensors, LF-POD coeffs., partial domain dofs) -> HF-POD coeffs
     model4 = MultifidelityNetwork(params4, input_dim = input_dim4, latent_dim = latent_dim4, output_dim = output_dim4, prev_models = [model1_list[i], model2_list[i], model3_list[i]], prev_inputs = [x1, x2, x3])
-    name = config.EXAMPLE_PATH + '/models/model4_traj_' + str(i)
+    name = config.MODEL_PATH + 'model4_sim_' + str(i)
     if config.TRAIN_MODELS:
         model4.autoencoder.compile(loss=custom_loss,optimizer=params4['opt'])
         tf.random.set_seed(config.SEED + i)
@@ -601,7 +587,7 @@ handles, labels = ax.get_legend_handles_labels()
 fig.legend(handles, labels, loc='upper right', fontsize=30)
 
 plt.tight_layout(rect=[0, 0, .95, 0.95])
-plt.savefig(config.EXAMPLE_PATH + '/figures/results_POD_NavierStokes', bbox_inches='tight', dpi=600)
+plt.savefig(config.FIGURE_PATH + 'results_POD_NavierStokes.svg', dpi=600, bbox_inches='tight')
 plt.show()
 
 
@@ -633,8 +619,8 @@ print("Error Level 2: ", err_2 * 100, "%")
 print("Error Level 3: ", err_3 * 100, "%")
 print("Error Level 4: ", err_4 * 100, "%")
 #%%
-
-vertices, connectivity, elem_centers, triangulation = load_mesh("./obstacleDFG_Coarse.msh")
+########################   PLOTTING RECONSTRUCTIONS   #######################
+vertices, connectivity, elem_centers, triangulation = load_mesh(config.DATA_PATH + "obstacleDFG_Coarse.msh")
 
 timesteps = [180, 390]
 n_simulations = [2, 4]
@@ -717,16 +703,11 @@ for timestep in timesteps:
         cb_bot.ax.tick_params(labelsize=16)
 
         # Title
-        fig.suptitle(f"Timestep {timestep}, Simulation {n_simulation}", fontsize=22)
+        fig.suptitle(f"$t={t_test[timestep]}$, $Re= {mu_test[n_simulation]}$", fontsize=22)
 
-        # Save (PDF + SVG)
+        # Save (SVG)
         fig.savefig(
-            f"./NavierStokes/Figures/pred_err_comparison_{timestep}_{n_simulation}.pdf",
-            dpi=300,
-            bbox_inches="tight"
-        )
-        fig.savefig(
-            f"./NavierStokes/Figures/pred_err_comparison_{timestep}_{n_simulation}.svg",
+            f"{config.FIGURE_PATH}/pred_err_comparison_{timestep}_{n_simulation}.svg",
             dpi=300,
             bbox_inches="tight"
         )

@@ -3,3 +3,6 @@
 .venv
 examples/reactiondiffusion/data/
 examples/navierstokes/data/
+!examples/navierstokes/data/obstacleDFG_Coarse.msh
+!examples/navierstokes/data/partial_domain_idxs
+.DS_Store
