@@ -3,7 +3,7 @@
 
 # Progressive multi-fidelity neural networks
 [Progressive multi-fidelity learning for physical system predictions](https://arxiv.org/abs/2510.13762) Conti, Guo, Frangi, Manzoni, (2025)
-> :warning: **Datasets and airpollution test case will be made available soon**
+> :warning: **Datasets and airpollution example will be made available in the upcoming days**
 
 ---
 
