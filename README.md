@@ -1,7 +1,7 @@
 <!-- PROJECT SHIELDS -->
 [![arXiv][arxiv-shield]][arxiv-url]
 
-# Progressive-Multifidelity-NNs
+# Progressive multi-fidelity neural networks
 [Progressive multi-fidelity learning for physical system predictions](https://arxiv.org/abs/2510.13762) Conti, Guo, Frangi, Manzoni, (2025)
 > :warning: **Datasets and airpollution test case will be made available soon**
 
