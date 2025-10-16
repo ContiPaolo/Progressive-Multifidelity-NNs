@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "progressive_multifidelity_nns"
+version = "0.1.0"
+description = "Progressive multifidelity neural networks"
+authors = [
+  { name="Paolo Conti" }
+]
+dependencies = [
+    "numpy",
+    "scipy",
+    "matplotlib",
+    "scikit-learn",
+    "tensorflow",
+    "h5py",
+    "mat73",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

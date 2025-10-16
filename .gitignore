@@ -1,0 +1,5 @@
+*.svg
+*.png
+.venv
+examples/reactiondiffusion/data/
+examples/navierstokes/data/
