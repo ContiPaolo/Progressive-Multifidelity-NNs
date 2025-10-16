@@ -2,7 +2,7 @@
 *.png
 .venv
 examples/reactiondiffusion/data/
-examples/navierstokes/data/
+examples/navierstokes/data/*
 !examples/navierstokes/data/obstacleDFG_Coarse.msh
-!examples/navierstokes/data/partial_domain_idxs
+!examples/navierstokes/data/partial_domain_idxs.txt
 .DS_Store
