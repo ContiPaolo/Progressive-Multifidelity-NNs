@@ -7,15 +7,15 @@
 
 ---
 
-## Installation
+### Installation
 
-### 1. Clone the repository
+#### 1. Clone the repository
 ```bash
 git clone [https://github.com/ContiPaolo/progressive_multifidelity_nns.git](https://github.com/ContiPaolo/Progressive-Multifidelity-NNs)
 cd Progressive-Multifidelity-NNs
 ```
 
-### 2. Create virtual environment
+#### 2. Create virtual environment
 ```
 python -m venv .venv
 ```
@@ -39,13 +39,13 @@ source .venv/bin/activate
 .venv\Scripts\Activate.ps1
 ```
 
-### 3. Install the package in editable mode
+#### 3. Install the package in editable mode
 
 ```bash
 pip install -e .
 ```
 
-### 4. Install additional requirements
+#### 4. Install additional requirements
 
 ```bash
 pip install -r requirements.txt
