@@ -1,5 +1,9 @@
+<!-- PROJECT SHIELDS -->
+[![arXiv][arxiv-shield]][arxiv-url]
+
 # Progressive-Multifidelity-NNs
 [Progressive multi-fidelity learning for physical system predictions](https://arxiv.org/abs/2510.13762) Conti, Guo, Frangi, Manzoni, (2025)
+> :warning: **Datasets and airpollution test case will be made available soon**
 
 ---
 
@@ -46,3 +50,7 @@ pip install -e .
 ```bash
 pip install -r requirements.txt
 ```
+
+
+[arxiv-shield]: https://img.shields.io/badge/arXiv-2405.20905-b31b1b.svg
+[arxiv-url]: https://arxiv.org/abs/2510.13762
