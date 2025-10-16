@@ -11,7 +11,7 @@
 
 #### 1. Clone the repository
 ```bash
-git clone [https://github.com/ContiPaolo/progressive_multifidelity_nns.git](https://github.com/ContiPaolo/Progressive-Multifidelity-NNs)
+git clone https://github.com/ContiPaolo/Progressive-Multifidelity-NNs
 cd Progressive-Multifidelity-NNs
 ```
 
