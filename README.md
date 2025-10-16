@@ -35,13 +35,13 @@ source .venv/bin/activate
 .venv\Scripts\Activate.ps1
 ```
 
-### 4. Install the package in editable mode
+### 3. Install the package in editable mode
 
 ```bash
 pip install -e .
 ```
 
-### 5. Install additional requirements
+### 4. Install additional requirements
 
 ```bash
 pip install -r requirements.txt
