@@ -1,8 +1,25 @@
-*.svg
+# Python cache files
+__pycache__/
+
+# Virtual environments
+.venv/
+
+# Egg info
+*.egg-info/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# macOS files
+.DS_Store
+
+# Images
 *.png
-.venv
+*.jpg
+*.jpeg
+*.svg
+
 examples/reactiondiffusion/data/
 examples/navierstokes/data/*
 !examples/navierstokes/data/obstacleDFG_Coarse.msh
 !examples/navierstokes/data/partial_domain_idxs.txt
-.DS_Store
