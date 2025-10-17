@@ -30,7 +30,7 @@ python -m venv .venv
 ```
 Activate it:
 
-* **Linux/macOS:** ```source .venv/bin/activat```
+* **Linux/macOS:** ```source .venv/bin/activate```
 
 * **Windows (cmd):** ```.venv\Scripts\activate```
 
