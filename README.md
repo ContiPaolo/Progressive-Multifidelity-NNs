@@ -20,9 +20,9 @@ Highly accurate datasets from numerical or physical experiments are often expens
 
 After downloading, place the files in the following directories `examples/reactiondiffusion/data/` and `examples/navierstokes/data/`, respectively.
 
-*Air pollution* dataset is available from [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/360/air+quality).
+*Air pollution* dataset is available from [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/360/air+quality) and included in the repository `examples/airpollution/data/`.
 
-> :warning: **Airpollution example will be made available in the upcoming days**
+> :warning: **Airpollution example will be made available soon**
 
 ## Installation:
 
