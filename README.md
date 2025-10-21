@@ -53,15 +53,15 @@ Activate it:
   .venv\Scripts\Activate.ps1
   ```
 
-#### 3. Install the package in editable mode 
-```
-pip install -e . 
-```
-
-#### 4. Install additional requirements
-
+#### 3. Install required packages
 ```
 pip install -r requirements.txt
+```
+
+#### 4. Install package in editable mode
+
+```
+pip install -e .
 ```
 * **Additionally for macOS:**: ```pip install -r requirements-macos.txt```
 
