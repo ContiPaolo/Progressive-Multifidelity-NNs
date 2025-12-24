@@ -525,7 +525,7 @@ for i in range(config.N_SIMULATIONS):
         model3.autoencoder.compile(loss=custom_loss,optimizer=params3['opt'])
         tf.random.set_seed(config.SEED + i)
         np.random.seed(config.SEED + i)
-        hist3 = model3.autoencoder.fit([x1_lstm_seq, x2_lstm_seq, x3_lstm_seq],y3_lstm_seq,epochs=config.N_SIMULATIONS,batch_size=x3_lstm_seq.shape[0],verbose=1,callbacks=[early_stopping])
+        hist3 = model3.autoencoder.fit([x1_lstm_seq, x2_lstm_seq, x3_lstm_seq],y3_lstm_seq,epochs=config.N_EPOCHS,batch_size=x3_lstm_seq.shape[0],verbose=1,callbacks=[early_stopping])
     else:
         model3.load_weights(name + '.weights.h5')
 
