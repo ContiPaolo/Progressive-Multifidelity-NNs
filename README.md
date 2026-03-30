@@ -2,8 +2,8 @@
 [![arXiv][arxiv-shield]][arxiv-url]
 [![DOI][doi-shield]][doi-url]
 
-# Progressive multi-fidelity neural networks
-Source code of the paper [Progressive multi-fidelity learning for physical system predictions](https://arxiv.org/abs/2510.13762) by Conti, Guo, Frangi and Manzoni (2025).
+# Progressive multi-fidelity learning with neural networks for physical system prediction
+Source code of the paper [Progressive multi-fidelity learning with neural networks sfor physical system predictions](https://www.sciencedirect.com/science/article/pii/S0045782526001544) by Conti, Guo, Frangi and Manzoni (2025).
 
 <img width="1307" height="615" alt="image" src="https://github.com/user-attachments/assets/73a0cf9f-f789-4318-bbc0-dd9b78a03b19" />
 
